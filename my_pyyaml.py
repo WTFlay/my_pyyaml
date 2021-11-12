@@ -1,6 +1,6 @@
 class MyPyYaml:
-    def parse(self, string):
-        data = dict()
+    def load(self, string):
+        root = dict()
         for line in string.split("\n"):
             splitted = line.split(':')
             if len(splitted) == 1:
@@ -12,5 +12,5 @@ class MyPyYaml:
                 value = int(value)
             except:
                 pass
-            data[key] = value
-        return data
+            root[key] = value
+        return root
