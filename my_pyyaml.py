@@ -7,17 +7,23 @@ class MyPyYaml:
             if len(splitted) == 1:
                 continue
             key, value = splitted
-            if len(key) - len(key.lstrip()) == 0:
+            if self.__begin_line(key):
                 cursor = root
             key = key.lstrip()
             if len(value) == 0:
                 cursor[key] = dict()
                 cursor = cursor[key]
                 continue
-            value = value.lstrip()
-            try:
-                value = int(value)
-            except:
-                pass
-            cursor[key] = value
+            cursor[key] = self.__strip_and_cast_value(value)
         return root
+
+    def __begin_line(self, line):
+        return len(line) - len(line.lstrip()) == 0
+
+    def __strip_and_cast_value(self, value):
+        value = value.lstrip()
+        try:
+            value = int(value)
+        except:
+            pass
+        return value
