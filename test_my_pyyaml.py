@@ -23,13 +23,23 @@ class TestMyPyYaml(unittest.TestCase):
 
     def test_load_multi_lines(self):
         lines = self.yaml.load("""
-        name: Order
-        type: SALES
-        price: 350
+name: Order
+type: SALES
+price: 350
         """)
         self.assertEqual(lines["name"], "Order")
         self.assertEqual(lines["type"], "SALES")
         self.assertEqual(lines["price"], 350)
+
+    def test_load_object(self):
+        obj = self.yaml.load("""
+customer:
+  firstName: Jon
+  lastName: Snow
+        """)
+        self.assertEqual(type(obj["customer"]), type(dict()))
+        self.assertEqual(obj["customer"]["firstName"], "Jon")
+        self.assertEqual(obj["customer"]["lastName"], "Snow")
 
 if __name__ == '__main__':
     unittest.main()
