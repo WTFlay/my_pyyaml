@@ -41,5 +41,18 @@ customer:
         self.assertEqual(obj["customer"]["firstName"], "Jon")
         self.assertEqual(obj["customer"]["lastName"], "Snow")
 
+    def test_combine_object_simple_line(self):
+        obj = self.yaml.load("""
+country: FR
+address:
+  street: rue Ada Lovelace
+  number: 117
+city: Paris
+        """)
+        self.assertEqual(obj["country"], "FR")
+        self.assertEqual(obj["address"]["street"], "rue Ada Lovelace")
+        self.assertEqual(obj["address"]["number"], 117)
+        self.assertEqual(obj["city"], "Paris")
+
 if __name__ == '__main__':
     unittest.main()

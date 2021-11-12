@@ -7,12 +7,14 @@ class MyPyYaml:
             if len(splitted) == 1:
                 continue
             key, value = splitted
-            key = key.strip()
+            if len(key) - len(key.lstrip()) == 0:
+                cursor = root
+            key = key.lstrip()
             if len(value) == 0:
                 cursor[key] = dict()
                 cursor = cursor[key]
                 continue
-            value = value.strip()
+            value = value.lstrip()
             try:
                 value = int(value)
             except:
