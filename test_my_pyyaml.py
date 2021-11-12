@@ -21,5 +21,15 @@ class TestMyPyYaml(unittest.TestCase):
         self.assertEqual(list(line)[0], "year")
         self.assertEqual(list(line.values())[0], 2021)
 
+    def test_parse_multi_lines(self):
+        lines = self.parser.parse("""
+        name: Order
+        type: SALES
+        price: 350
+        """)
+        self.assertEqual(lines["name"], "Order")
+        self.assertEqual(lines["type"], "SALES")
+        self.assertEqual(lines["price"], 350)
+
 if __name__ == '__main__':
     unittest.main()
