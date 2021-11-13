@@ -7,9 +7,9 @@ class TestMyPyYaml(unittest.TestCase):
     def setUp(self):
         self.yaml = my_pyyaml.MyPyYaml()
 
-    def test_load_return_dict(self):
+    def test_load_return_none_if_nothing(self):
         line = self.yaml.load("")
-        self.assertEqual(type(line), type(dict()))
+        self.assertEqual(line, None)
 
     def test_load_simple_line(self):
         line = self.yaml.load("name: Flavien")
@@ -53,6 +53,17 @@ city: Paris
         self.assertEqual(obj["address"]["street"], "rue Ada Lovelace")
         self.assertEqual(obj["address"]["number"], 117)
         self.assertEqual(obj["city"], "Paris")
+
+    def test_array(self):
+        array = self.yaml.load("""
+- Python
+- Javascript
+- Rust
+- Go
+- Lua
+        """)
+        self.assertEqual(type(array), type([]))
+        self.assertEqual(array, ["Python", "Javascript", "Rust", "Go", "Lua"])
 
 if __name__ == '__main__':
     unittest.main()
